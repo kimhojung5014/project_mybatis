@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.myapp.board.dao.BoardRepository">
+
+	<!-- 게시글 목록 불러오기 -->
+	<select id="boardList" parameterType="Criteria" resultType="BoardVo">
+		select category,title,writer,writingTime,views,writeNum,userId
+		from(select rownum rn,category,title,writer,writingTime,views,writeNum,userId
+			 from board
+			 <if test="category != null or chooseSearch != null or search != null">
+			 where
+			 </if>
+			 <if test="category != null">
+			 category like #{category}
+			 </if>
+			 <if test="chooseSearch != null and search != null">
+			 <!-- $ # 의 차이 #은 자동으로 ''을 추가해서 %를 넣을 수 없다 -->
+			${chooseSearch} like '%${search}%'
+			 </if>
+			 ORDER BY writeNum DESC)
+			 where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
+	</select>
+	<!-- 게시글 토탈 개수 -->	
+	<select id="boardTotal" parameterType="Criteria" resultType="int">
+		SELECT count(*) from board
+		 <if test="category != null or chooseSearch != null or search != null">
+		 where
+		 </if>
+		 <if test="category != null">
+		 category like #{category}
+		 </if>
+		 <if test="chooseSearch != null and search != null">
+		  ${chooseSearch} like '%${search}%'
+		 </if>
+	</select>
+	
+	<!-- 게시글 삽입 -->
+	<insert id="boardInsert" parameterType="BoardVo">
+		INSERT INTO BOARD (CATEGORY,TITLE,WRITER, USERID, CONTENT,VIEWS, WRITENUM, WRITINGTIME)
+		VALUES(#{category}, #{title}, #{writer}, #{userId}, #{content}, 0, LISTSE.nextval,TO_CHAR (SYSDATE,'YYYY"년" MM"월 "DD"일 "hh24"시 "mi"분 "ss"초"'))
+	</insert>
+	
+	<!-- 조회수 업 -->
+	<update id="boardViews" parameterType="int">
+		UPDATE board SET views = views+1 where writeNum = #{writeNum}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="boardDelete" parameterType="int">
+		DELETE BOARD WHERE WRITENUM = #{writeNum}
+	</delete>
+	
+	<!-- 게시글 수정 -->
+	<update id="boardEdit">
+		UPDATE BOARD 
+		SET CATEGORY = #{category}, TITLE = #{title}, CONTENT = #{content} 
+		WHERE WRITENUM = #{writeNum}
+	</update>
+	
+	<select id="getBoard" parameterType="int" resultType="BoardVo">
+		SELECT * FROM BOARD WHERE writeNum = #{writeNum}
+	</select>
+</mapper>
