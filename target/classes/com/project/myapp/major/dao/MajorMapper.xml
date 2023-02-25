@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.myapp.major.dao.MajorRepository">
+	
+	<!-- 학과 불러오기 -->
+	<select id="majorList" parameterType="Criteria" resultType="MajorVo">
+		select *
+		from (select rownum rn, major,salary,employment,summary,lclass,uni,DEPARTMENT
+		from majorDetail
+		<if test="search != null">
+			WHERE major like '%search%' )
+		</if>
+		<if test="search == null">
+			 )
+		</if>
+		where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
+	</select>
+	
+	<!-- 학과 세부 정보 -->
+	<select id="majorDetail" parameterType="String" resultType="MajorVo">
+		SELECT * FROM MAJORDETAIL WHERE major = #{major}
+	</select>
+	
+	<!-- 학과 리스트 토탈 개수 -->
+	<select id="majorTotal" parameterType="Criteria" resultType="int">
+		select count(*)
+		from (select major
+			  from majordetail
+			  <if test="search != null">
+			  WHERE major like '%${search}%'
+			  </if>
+			  <if test="search == null">
+			  )
+			  </if>
+	</select>
+	
+	<!-- 추천 학과 토탈 -->
+	<select id="majorRecommend" resultType="MajorVo" parameterType="MajorTest">
+		
+		<if test="priority.equals('SATISFACTIONDATA')">
+			select *
+			from(select ROW_NUMBER() OVER (ORDER BY REGEXP_SUBSTR (#{priority},'[^@]+', 1, 5) desc,
+				 REGEXP_SUBSTR (#{priority}, '[^@]+', 1, 4) desc)as rn,
+		   	     REGEXP_SUBSTR (#{priority}, '[^@]+', 1, 5)as priority , m.* 
+				 from majorDetail m)
+		</if>
+		
+		<if test="!priority.equals('SATISFACTIONDATA')">
+			select *
+			from(select ROW_NUMBER() OVER (ORDER BY REGEXP_SUBSTR (#{priority},'[^@]+', 1, 1) desc)as rn,
+				 REGEXP_SUBSTR (#{priority},'[^@]+', 1, 1)as priority ,m.*
+				 from majorDetail m
+		</if>
+		
+		<where>
+				<!-- 학교 유형 전부 선택 인지 확인 -->
+		<choose>
+			<when test="!lclass.equals('all') and !uni.equals('all')">
+				  Lclass like #{lclass} and uni like #{uni}
+			</when>
+			<when test="!lclass.equals('all') and uni.equals('all')">
+				  lclass like #{lclass}
+			</when>
+			<when test="lclass.equals('all') and !uni.equals('all')">
+				  uni like #{uni}
+			</when>
+		</choose>
+		
+		<if test="money.equals('경제적으로 힘든 상황') or time.equals('온라인만 가능')">
+			and (m.schoolname like '%한국방송통신%' or m.schoolname like '%사이버%')
+		</if>
+		
+		</where>
+
+		)
+		where rn BETWEEN 1 and 10
+	</select>
+	
+</mapper>

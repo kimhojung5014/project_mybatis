@@ -53,7 +53,8 @@ public class JobDetailVo {
 				   equalEmploymentValue, //--고용평등 값
 	
 				   major;
-				   
+		public JobDetailVo() {
+		}
 	public JobDetailVo(  String job, 	//직업이름
 						  String summary, //하는일
 						  String similarJob, //비슷한 직업

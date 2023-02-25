@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.myapp.job.dao.JobRepository">
+	
+	<select id="jobList" parameterType="Criteria" resultType="JobListVo">
+		 select *
+		 from (select 
+		 	   rownum rn,
+		 	   job, jobdicseg, profrssion ,
+		 	   similarJob ,
+		 	   summary ,
+		 	   equalemployment ,
+		 	   possibility , 
+		 	   prospect ,
+		 	   salery ,
+		 	   job_Code , 
+		 	   job_Ctg_Code ,
+		 	   Aptd_Type_Code 
+		 	   from joblist 
+		<if test="search != null">
+			where job like '%${search}%'
+		</if>
+		)
+		where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
+	</select>
+	
+	<select id="jobdetail" parameterType="String" resultType="JobDetailVo">
+		SELECT * FROM jobDetail WHERE job = #{job}
+	</select>
+	
+	<select id="jobTotal" parameterType="Criteria" resultType="int">
+		SELECT count(*) from jobList
+		<if test="search != null">
+			where job LIKE '%${search}%'
+		</if>
+	</select>
+	
+	<select id="jobRecommendList" parameterType="Criteria" resultType="JobDetailVo">
+		select jd2.*
+		from (select rownum rn,jd1.*
+			  FROM(SELECT *
+			       FROM JOBDETAIL
+			       WHERE ${priority} IS NOT NULL
+			       <if test="!ability.equals('All')">
+			       AND ability LIKE '%${ability}%'
+			       </if>
+			       AND JOB in (SELECT JOB FROM JOBLIST 
+			       <if test="!profrssion.equals('All')">
+			       WHERE profrssion LIKE #{profrssion}
+			       </if>
+			       )
+			       ORDER BY to_Number(${priority}) DESC)jd1 )jd2
+			       where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
+	</select>
+	
+		<select id="jobRecommendTotal" parameterType="Criteria" resultType="int">
+		SELECT count(*)
+		FROM JOBDETAIL 
+		WHERE ${priority} IS NOT NULL
+			       <if test="!ability.equals('All')">
+			       AND ability LIKE '%${ability}%'
+			       </if>
+			       
+			       AND JOB in (SELECT JOB FROM JOBLIST 
+			       
+			       <if test="!profrssion.equals('All')">
+			       WHERE profrssion LIKE #{profrssion}
+			       </if>
+			       )
+			       
+	</select>
+</mapper>

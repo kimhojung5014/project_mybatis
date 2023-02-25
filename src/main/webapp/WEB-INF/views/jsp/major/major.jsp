@@ -91,7 +91,7 @@
                 </li>
                
                 <li>
-                  <input type="radio"  value="경제적으로 여유로움" name="money"> 경제적으로 여유로움
+                  <input type="radio"  value="등록금 부담 가능" name="money"> 등록금 부담 가능
                 </li>
               </ul>
           

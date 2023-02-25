@@ -11,5 +11,10 @@
 		<typeAlias type="com.project.myapp.board.model.BoardVo" alias="BoardVo"/>
 		<typeAlias type="com.project.myapp.reply.model.ReplyVo" alias="ReplyVo"/>
 		<typeAlias type="com.project.myapp.page.model.Criteria" alias="Criteria"/>
+		<typeAlias type="com.project.myapp.major.model.MajorTest" alias="MajorTest"/>
+		<typeAlias type="com.project.myapp.major.model.MajorVo" alias="MajorVo"/>
+		<typeAlias type="com.project.myapp.job.model.JobDetailVo" alias="JobDetailVo"/>
+		<typeAlias type="com.project.myapp.job.model.JobListVo" alias="JobListVo"/>
+		
 	</typeAliases>
 </configuration>

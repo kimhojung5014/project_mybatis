@@ -42,7 +42,7 @@ public class JobController {
 	JobDetailService jobDetailService;
 	
 	@GetMapping(value = "jobDetail")
-	public String joiDetail(String job, Model model) {
+	public String jobDetail(String job, Model model) {
 		try {
 			model.addAttribute("jobData", jobDetailService.Jobdetail(job));
 			
