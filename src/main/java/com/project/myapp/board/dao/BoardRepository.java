@@ -2,6 +2,8 @@ package com.project.myapp.board.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.project.myapp.board.model.BoardVo;
 import com.project.myapp.page.model.Criteria;
 
@@ -16,6 +18,8 @@ public interface BoardRepository {
 	
 	//페이지 처리 전용 메소드 
 	public List<BoardVo>boardList(Criteria cri);
+
+	//public List<BoardVo>boardList(@Param("cri")Criteria cri,@Param("userId") String userId);
 	
 	//총 게시글 개수 불러오는 메소드
 	public int boardTotal(Criteria cri);

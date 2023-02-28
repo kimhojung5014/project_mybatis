@@ -1,0 +1,98 @@
+@charset "UTF-8";
+/* 메인 레이아웃 그리드  */
+#mainStyle {
+
+  display:grid;
+
+  grid-template-columns: minmax(0px,1fr) 800px minmax(0px,1fr);
+
+  grid-template-rows: 1fr;
+  text-align: center;
+
+  /* 양 옆 마진  */
+ margin: 50px 50px;
+
+  grid-template-areas: 
+  ". mainContent ."; 
+}
+
+
+#mainContent {
+
+  grid-area: mainContent;
+
+
+  padding-top: 50px;
+}
+#search {
+  border-collapse: collapse;
+
+  /* text-align: center; */
+margin-left: auto;
+margin-right: auto;
+  /* width: 100%; */
+}
+
+#search td{
+  height: 50px;
+  width: 200px;
+}
+
+
+.textleft{
+  text-align: left;
+  padding-left: 60px;
+}
+
+#search input{
+  height: 30px;
+
+  font-size: 1rem;
+
+  text-align: center;
+
+  border-radius: 5px;
+
+  border: solid 1px rgb(170, 170, 170);
+}
+
+
+/* 부제목 단 */
+.subtitle {
+  font-size: 1.3rem;
+  font-weight: bold;
+  background-color: rgb(76, 111, 219);
+  line-height: 50px;
+  color: white;
+  padding-left: 20px;
+  border-radius: 20px;
+  text-align: center;
+  width:500px;
+  margin: auto;
+  
+}
+/* 부부제목 */
+.subsubtitle {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.textarea {
+  font-size: 1rem;
+
+  padding: 50px 50px;
+
+}
+
+/* 결과보기 버튼 */
+.submitbutton {
+  font-size: 1.25rem;
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  color: white;
+  background-color:rgb(76, 111, 219);
+  border: none;
+  font-weight: bold;
+}
+

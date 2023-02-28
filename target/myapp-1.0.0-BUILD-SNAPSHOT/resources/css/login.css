@@ -1,7 +1,24 @@
 @charset "UTF-8";
 
-/* 메인 레이아웃 그리드  */
-/* 메인 레이아웃 그리드  */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+} 
+
+html{
+font-family: 'Noto Sans KR', sans-serif;
+
+}
 #mainStyle {
 
   display:grid;
@@ -25,6 +42,12 @@
   padding-left:30px ;
 
 }
+.textleft{
+  text-align: left;
+  padding-left: 60px;
+  font-size:1.125rem;
+}
+
 /* 부제목 단 */
 .subtitle {
   font-size: 1.3rem;
@@ -120,13 +143,12 @@
   color: white;
   font-size: 1.3rem;
   font-weight: bold;
-}
-.button a {
-  color: white;
+  display: block;
+  margin:auto;
 }
 
 
-button:hover {
+.button:hover {
   background-color:#aaa;
   font-size: 1.4rem;
 }

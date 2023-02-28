@@ -7,19 +7,19 @@
 		select category,title,writer,writingTime,views,writeNum,userId
 		from(select rownum rn,category,title,writer,writingTime,views,writeNum,userId
 			 from board
-			 <if test="category != null or chooseSearch != null or search != null">
-			 where
-			 </if>
+			<where>
 			 <if test="category != null">
 			 category like #{category}
 			 </if>
 			 <if test="chooseSearch != null and search != null">
-			 <!-- $ # 의 차이 #은 자동으로 ''을 추가해서 %를 넣을 수 없다 -->
-			${chooseSearch} like '%${search}%'
+			 <!--  $ # 의 차이 #은 자동으로 ''을 추가해서 %를 넣을 수 없다-->
+			 and ${chooseSearch} like '%${search}%'
 			 </if>
+			 </where>
 			 ORDER BY writeNum DESC)
 			 where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
 	</select>
+
 	<!-- 게시글 토탈 개수 -->	
 	<select id="boardTotal" parameterType="Criteria" resultType="int">
 		SELECT count(*) from board

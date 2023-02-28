@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.myapp.board.model.BoardVo;
 import com.project.myapp.board.service.BoardDeleteService;
@@ -49,7 +50,6 @@ public class BoardController {
 		
 		return "board/board";
 	}
-	
 	
 	
 	//게시판 내부 들어가기

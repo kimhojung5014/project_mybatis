@@ -46,7 +46,21 @@
         </li>
         <li>
         	<c:choose>
-        		<c:when test="${userData ne null}"><a href ="mypage">마이페이지</a></c:when>
+        		<c:when test="${userData ne null}">
+        		<ul class="main1">
+        		  <li>마이페이지
+        			<ul class="main2">
+    			        <li><a href="mypage">개인 정보 수정</a></li>
+                        <li><a href="list?chooseSearch=writer&search=${userData.userId}">작성글보기</a></li>
+                        <li><a href="replyMypage?userId=${userData.userId}">작성댓글보기</a></li>
+                        <!-- 관리자 전용 탈퇴  -->
+                        <c:if test="${userData.userId eq 'master'}">
+                        <li><a href="memberList">회원 목록</a></li>
+                        </c:if>
+        			</ul>
+                </ul>
+        		</c:when>
+    		    
     		    <c:otherwise></c:otherwise>
         	</c:choose>
         </li>

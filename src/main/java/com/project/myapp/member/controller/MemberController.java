@@ -1,6 +1,8 @@
 package com.project.myapp.member.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -12,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.project.myapp.member.dao.JoinRepository;
 import com.project.myapp.member.model.JoinVo;
+import com.project.myapp.member.service.DropService;
 import com.project.myapp.member.service.EditService;
 import com.project.myapp.member.service.IdCheckService;
 import com.project.myapp.member.service.InsertJoinService;
@@ -21,6 +25,8 @@ import com.project.myapp.member.service.NickNameCheckService;
 import com.project.myapp.member.service.ResetPwService;
 import com.project.myapp.member.service.SearchIdService;
 import com.project.myapp.member.service.SearchPwService;
+import com.project.myapp.page.model.Criteria;
+import com.project.myapp.page.model.PageMakerVo;
 
 
 @Controller
@@ -146,9 +152,7 @@ public class MemberController {
 		int pw = searchPwService.searchPw(userId, eMail, telNumber);
 		System.out.println("서비스 실행완료");
 		if (pw == 1) {
-			//
 			model.addAttribute("userId",userId);
-			System.out.println("id세팅");
 		}
 			model.addAttribute("pw", pw);
 		return "member/searchPw";
@@ -180,5 +184,38 @@ public class MemberController {
 		editService.edit(joinVo);
 		
 		return "member/Msg";
+	}
+	
+	@Autowired
+	DropService DropServiceImpl;
+	
+	@GetMapping(value = "drop")
+	public String drop(String userId, HttpSession session) {
+		DropServiceImpl.drop(userId);
+		session.invalidate();
+		return "main/index";
+	}
+	@GetMapping(value = "exile")
+	public String exile(String userId) {
+		//DropServiceImpl.drop(userId);
+		return "redirect:/memberList";
+	}
+	
+	@Autowired
+	JoinRepository join;
+	@GetMapping(value = "memberList")
+	public String memberList(Criteria cri,Model model) {
+		
+		List<JoinVo>memberList = join.memberList(cri);
+		
+		int total = memberList.size();
+		
+		PageMakerVo pageMake = new PageMakerVo(cri, total);
+		
+		model.addAttribute("pageMaker", pageMake);
+		
+		model.addAttribute("memberList", memberList);
+		
+		return "member/memberlist";
 	}
 }

@@ -27,6 +27,10 @@
             <option value="직업정보" selected>직업정보</option>
             <option value="학과정보">학과정보</option>
             <option value="고민상담">고민상담</option>
+            
+            <c:if test="${userData.userId eq 'master'}">
+            <option value="공지사항">공지사항</option>
+            </c:if>
           </select>
           <br><br>
           <!-- 제목 -->

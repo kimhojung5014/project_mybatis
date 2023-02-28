@@ -1,8 +1,11 @@
 package com.project.myapp.member.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.project.myapp.member.model.JoinVo;
+import com.project.myapp.page.model.Criteria;
 
 public interface JoinRepository {
 
@@ -21,4 +24,9 @@ public interface JoinRepository {
 	public int searchPw(@Param("userId")String userId,@Param("eMail") String eMail, @Param("telNumber")String telNumber);
 	
 	public void resetPw(@Param("userId")String userId, @Param("pw") String pw);
+	
+	public void drop(String userId);
+	
+	public List<JoinVo> memberList(Criteria cri);
+		
 }

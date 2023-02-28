@@ -83,6 +83,7 @@
 
 /* 폼 버튼 스타일 결과보기 다시하기 용 */
 .button {
+  display:block;
   background-color:rgb(76, 111, 219);
   border-style: none;
   border-radius: 20px;
@@ -96,10 +97,11 @@
   color: white;
 }
 
-button:hover {
+.button:hover {
   background-color:#aaa;
 }
-/* 버튼 스타일 결과보기 다시하기 끝 */
 
-
-/* 메인 레이아웃 끝 */
+#choose {
+    display: flex;
+    justify-content: space-evenly;
+}

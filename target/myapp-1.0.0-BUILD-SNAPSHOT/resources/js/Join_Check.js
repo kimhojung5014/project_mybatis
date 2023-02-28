@@ -67,14 +67,14 @@ function id_Check(){
 	const idMsg = document.getElementById("idMsg");
 	const correctColor = "#00ff00";	//맞았을 때 출력되는 색깔.
 	const wrongColor ="#ff0000";	//틀렸을 때 출력되는 색깔
-	const pattern =/^[A-Za-z]{1}[A-Za-z0-9]{4,20}$/; // 첫글자는 문자만 가능 뒤는 상관 없고 글자수는 5-20
+	const pattern =/^[A-Za-z]{1}[A-Za-z0-9]{7,20}$/; // 첫글자는 문자만 가능 뒤는 상관 없고 글자수는 8-20
 	  if(pattern.test(id.value)){
 		  	idMsg.style.color = correctColor;
 			idMsg.innerHTML = "OK!";
 			return true;
 	  }else{
 		  	idMsg.style.color = wrongColor;
-			idMsg.innerHTML = "첫글자는 영어로 하고 , 5 ~ 20 글자 특수문자 제외 입력";
+			idMsg.innerHTML = "첫글자는 영어로 하고 , 8 ~ 20 글자 특수문자 제외 입력";
 			return false;
 			
 	  }
@@ -256,7 +256,7 @@ function tel_Check() {
 	const wrongColor ="#ff0000";	//틀렸을 때 출력되는 색깔
 	const telNumber = document.getElementById("telNumber");
 	const telMsg = document.getElementById("telMsg");
-	const regExp = /01[016789]-?[0-9]{4}-?[0-9]{4}/; // 전화번호 정규식 
+	const regExp = /01[016789][0-9]{4}[0-9]{4}/; // 전화번호 정규식 
 	if (regExp.test(telNumber.value)) {
 		telMsg.style.color = correctColor;
 		telMsg.innerHTML = "OK!";
@@ -301,40 +301,6 @@ function myPage_final_Check() {
 	}
 }
 
-//아이디 검색 메소드
-function searchId() {
-	if (name_Check() && eMail_Check() && document.getElementById('telNumber').value == "") {
-		
-		document.getElementById('searchIdForm').submit();
-		
-	}else if (name_Check() && tel_Check() && document.getElementById('eMail').value == "") {
-		
-		document.getElementById('searchIdForm').submit();
-		
-	}else if (name_Check() && eMail_Check() && tel_Check()) {
-		alert("전화번호, 이메일중 1개만 입력해주세요")
-	}
-	else {
-		alert("내용을 입력해주세요");
-	}
-}
-//비밀번호 검색 메소드
-function searchPw() {
-	if (id_Check() && eMail_Check() && document.getElementById('telNumber').value == "") {
-		
-		document.getElementById('searchPwForm').submit();
-		
-	}else if (id_Check() && tel_Check() && document.getElementById('eMail').value == "") {
-		
-		document.getElementById('searchPwForm').submit();
-		
-	}else if (id_Check() && eMail_Check() && tel_Check()) {
-		alert("전화번호, 이메일중 1개만 입력해주세요")
-	}
-	else {
-		alert("내용을 입력해주세요");
-	}
-}
 
 function loginCheck() {
 	

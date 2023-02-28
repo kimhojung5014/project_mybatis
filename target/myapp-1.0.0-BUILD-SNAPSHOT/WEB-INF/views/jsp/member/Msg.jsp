@@ -8,12 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="${page eq 'resetPw' }">
 	<script type="text/javascript">
 		alert("비밀번호가 변경되었습니다.")
 		document.location.href = "/";
 	</script>
-	</c:if>
 
 </body>
 </html>

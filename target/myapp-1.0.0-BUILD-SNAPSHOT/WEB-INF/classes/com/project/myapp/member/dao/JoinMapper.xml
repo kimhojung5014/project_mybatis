@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.myapp.member.dao.JoinRepository">
+  	
+  	<select id="login" resultType="JoinVo">
+  		select * from join where userId=#{id} and pw=#{pw}
+  	</select>
+  	
+  	<insert id="insertJoin" parameterType="JoinVo">
+  		INSERT into join(numId,userId,pw,nickName,userName,eMail,telNumber)
+  			values(ADDR_SEQ.nextval,#{userId},#{pw},#{nickName},#{userName},#{eMail},#{telNumber})
+  	</insert>
+  	
+  	<select id="idCheck" parameterType="String" resultType="boolean">
+  		select CASE when COUNT(*) = 0 then 1 else 0 end as exist 
+  		FROM JOIN 
+  		WHERE USERID = #{id}
+  	</select>
+  	
+  	<select id="nickNameCheck" parameterType="String" resultType="boolean">
+  		select CASE when COUNT(*) = 0 then 1 else 0 end as exist 
+  		FROM JOIN 
+  		WHERE NICKNAME = #{nick}
+  	</select>
+  	
+  	<update id="edit" parameterType="JoinVo">
+  		UPDATE JOIN 
+  		SET userId = #{userId}, 
+  		pw = #{pw}, 
+  		nickName = #{nickName}, 
+  		userName = #{userName}, 
+  		eMail = #{eMail}, 
+  		telNumber = #{telNumber} 
+  		where numId = #{numId}
+  	</update>
+  	
+  	<select id="searchId" resultType="String">
+  		SELECT SUBSTR(userid,1,length(userid)-4) || LPAD('*',4,'*') as userId 
+  		FROM join 
+  		WHERE USERNAME = #{userName} 
+  		AND EMAIL = #{eMail}
+  		AND telNumber = #{telNumber}
+  	</select>
+  	
+  	<select id="searchPw" resultType="int">
+  		SELECT count(*)
+  		FROM join 
+  		WHERE userId = #{userId} 
+  		AND EMAIL = #{eMail}
+  		AND telNumber = #{telNumber}
+  	</select>
+  	
+  	<update id="resetPw">
+		UPDATE JOIN SET PW = #{pw} WHERE userid = #{userId}  	
+  	</update>
+</mapper>

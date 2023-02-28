@@ -110,7 +110,7 @@
 		           		<c:if test="${userData ne null }">
 		           		 	<td><button type="button" class="insertButton"  onclick="choose(${status.index})">답글달기</button></td>
 						</c:if>
-						<c:if test="${userData.userId  eq  reply.userId}">
+						<c:if test="${userData.userId  eq  reply.userId || userData.userId eq 'master'}">
 							<td>
 								<input type="button" class="editButton" name="replyEdit" onclick="replyEdit(${status.index},${reply.commentNum },${boardVo.writeNum })" value="수정">
 							</td>
