@@ -3,16 +3,21 @@ package com.project.myapp.member.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.myapp.member.dao.JoinRepository;
 import com.project.myapp.member.model.JoinVo;
@@ -27,6 +32,7 @@ import com.project.myapp.member.service.SearchIdService;
 import com.project.myapp.member.service.SearchPwService;
 import com.project.myapp.page.model.Criteria;
 import com.project.myapp.page.model.PageMakerVo;
+
 
 
 @Controller
@@ -218,4 +224,13 @@ public class MemberController {
 		
 		return "member/memberlist";
 	}
+	
+	@ExceptionHandler({Exception.class})
+	public String runTimeException(Model model, Exception e,HttpServletRequest request) {
+		model.addAttribute("url", request.getRequestURI());
+		model.addAttribute("exception", e);
+		return "error/errorPage";
+	}
+
+
 }
