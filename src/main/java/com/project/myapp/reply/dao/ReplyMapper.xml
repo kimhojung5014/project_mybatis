@@ -18,7 +18,13 @@
               where userId like #{userId})
 		where rn BETWEEN ((#{cri.pageNum}-1) * 10) + 1 and #{cri.pageNum} * 10
 	</select>
+	<select id="replyMypageTotal" resultType="int">
+		select count(*) 
+		from (select ROWNUM rn, r.*
+              from reply r
+              where userId like #{userId})
 	
+	</select>
 	
 	<insert id="replyInsert" parameterType="ReplyVo">
 		INSERT INTO REPLY(parentNickName,

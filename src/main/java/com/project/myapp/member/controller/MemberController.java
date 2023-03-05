@@ -26,6 +26,8 @@ import com.project.myapp.member.service.EditService;
 import com.project.myapp.member.service.IdCheckService;
 import com.project.myapp.member.service.InsertJoinService;
 import com.project.myapp.member.service.LoginService;
+import com.project.myapp.member.service.MemberListService;
+import com.project.myapp.member.service.MemberTotalService;
 import com.project.myapp.member.service.NickNameCheckService;
 import com.project.myapp.member.service.ResetPwService;
 import com.project.myapp.member.service.SearchIdService;
@@ -194,27 +196,30 @@ public class MemberController {
 	
 	@Autowired
 	DropService DropServiceImpl;
-	
+	//회원탈퇴
 	@GetMapping(value = "drop")
 	public String drop(String userId, HttpSession session) {
 		DropServiceImpl.drop(userId);
 		session.invalidate();
 		return "main/index";
 	}
+	//회원추방
 	@GetMapping(value = "exile")
 	public String exile(String userId) {
-		//DropServiceImpl.drop(userId);
+		DropServiceImpl.drop(userId);
 		return "redirect:/memberList";
 	}
 	
 	@Autowired
-	JoinRepository join;
+	MemberListService memberListServiceImpl;
+	@Autowired
+	MemberTotalService memberTotalServiceImpl;
 	@GetMapping(value = "memberList")
 	public String memberList(Criteria cri,Model model) {
 		
-		List<JoinVo>memberList = join.memberList(cri);
+		List<JoinVo>memberList = memberListServiceImpl.memberList(cri);
 		
-		int total = memberList.size();
+		int total = memberTotalServiceImpl.memberTotal(cri);
 		
 		PageMakerVo pageMake = new PageMakerVo(cri, total);
 		
@@ -223,13 +228,6 @@ public class MemberController {
 		model.addAttribute("memberList", memberList);
 		
 		return "member/memberlist";
-	}
-	
-	@ExceptionHandler({Exception.class})
-	public String runTimeException(Model model, Exception e,HttpServletRequest request) {
-		model.addAttribute("url", request.getRequestURI());
-		model.addAttribute("exception", e);
-		return "error/errorPage";
 	}
 
 

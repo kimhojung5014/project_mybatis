@@ -18,15 +18,15 @@
     <div id="titleHome">
       <a href="/" >나의 진로 추천 서비스</a>
     </div>
-    <div id="searchStyle">
-      <!--검색 기능 폼  -->
-      <form action="">
+<!--     <div id="searchStyle"> -->
+<!--       검색 기능 폼  -->
+<!--       <form action=""> -->
       
-        <label for="totalSearch"><span>통합검색</span></label>
-        <input type="search" name="totalSearch" class="searchSize" placeholder="Search...">
-      </form>
+<!--         <label for="totalSearch"><span>통합검색</span></label> -->
+<!--         <input type="search" name="totalSearch" class="searchSize" placeholder="Search..."> -->
+<!--       </form> -->
 
-    </div> 
+<!--     </div>  -->
     <nav id ="nav1">                
       <ul id="loginmenu">
 	      <li>
@@ -51,7 +51,7 @@
         		  <li>마이페이지
         			<ul class="main2">
     			        <li><a href="mypage">개인 정보 수정</a></li>
-                        <li><a href="list?chooseSearch=writer&search=${userData.userId}">작성글보기</a></li>
+                        <li><a href="list?chooseSearch=writer&search=${userData.nickName}">작성글보기</a></li>
                         <li><a href="replyMypage?userId=${userData.userId}">작성댓글보기</a></li>
                         <!-- 관리자 전용 탈퇴  -->
                         <c:if test="${userData.userId eq 'master'}">

@@ -8,11 +8,9 @@
 		from (select rownum rn, major,salary,employment,summary,lclass,uni,DEPARTMENT
 		from majorDetail
 		<if test="search != null">
-			WHERE major like '%search%' )
+			WHERE major like '%'|| #{search} ||'%' 
 		</if>
-		<if test="search == null">
 			 )
-		</if>
 		where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
 	</select>
 	
@@ -23,31 +21,27 @@
 	
 	<!-- 학과 리스트 토탈 개수 -->
 	<select id="majorTotal" parameterType="Criteria" resultType="int">
-		select count(*)
-		from (select major
-			  from majordetail
+		select count(*)  from majorDetail
 			  <if test="search != null">
-			  WHERE major like '%${search}%'
+			  WHERE major LIKE '%'||#{search}||'%'
 			  </if>
-			  <if test="search == null">
-			  )
-			  </if>
+	
 	</select>
 	
 	<!-- 추천 학과 토탈 -->
 	<select id="majorRecommend" resultType="MajorVo" parameterType="MajorTest">
-		
-		<if test="priority.equals('SATISFACTIONDATA')">
-			select *
-			from(select ROW_NUMBER() OVER (ORDER BY REGEXP_SUBSTR (#{priority},'[^@]+', 1, 5) desc,
-				 REGEXP_SUBSTR (#{priority}, '[^@]+', 1, 4) desc)as rn,
-		   	     REGEXP_SUBSTR (#{priority}, '[^@]+', 1, 5)as priority , m.* 
-				 from majorDetail m)
+		select *
+		<if test="priority.equals('SATISFACTIONDATA')"><!-- 직업만족도일 경우 매우만족이 5번째에 있으니  @로 나누고 5번째 값으로 정렬한다. -->
+			from(select ROW_NUMBER() OVER (ORDER BY TO_NUMBER(REGEXP_SUBSTR (${priority},'[^@]+', 1, 5)) desc,<!--매우만족이 제일 높은 순으로 정렬 숫자로 변경해야 값이 제대로 정렬된다.-->
+				 TO_NUMBER(REGEXP_SUBSTR (${priority}, '[^@]+', 1, 4)) desc)as rn, <!-- 만약 매우 만족이 동일하면 만족 순으로 정렬하고 이름 rn으로 숫자로 변경해야 값이 제대로 정렬된다 이름은 rn으로 -->
+		   	     REGEXP_SUBSTR (#{priority}, '[^@]+', 1, 5)as priority , 
+		   	     m.* <!-- 나머지 전부 출력 --> 
+				 from majorDetail m
+
 		</if>
 		
-		<if test="!priority.equals('SATISFACTIONDATA')">
-			select *
-			from(select ROW_NUMBER() OVER (ORDER BY REGEXP_SUBSTR (#{priority},'[^@]+', 1, 1) desc)as rn,
+		<if test="!priority.equals('SATISFACTIONDATA')"><!-- 직업 만족도가 아닌 보상, 취업률일 경우 첫번째에 값이 있으니 처음 값으로  비교한다. -->
+			from(select ROW_NUMBER() OVER (ORDER BY TO_NUMBER(REGEXP_SUBSTR (${priority},'[^@]+', 1, 1)) desc)as rn,
 				 REGEXP_SUBSTR (#{priority},'[^@]+', 1, 1)as priority ,m.*
 				 from majorDetail m
 		</if>

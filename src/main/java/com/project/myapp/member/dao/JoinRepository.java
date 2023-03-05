@@ -28,5 +28,7 @@ public interface JoinRepository {
 	public void drop(String userId);
 	
 	public List<JoinVo> memberList(Criteria cri);
+	
+	public int memberTotal(Criteria cri);
 		
 }

@@ -18,6 +18,7 @@ import com.project.myapp.reply.service.ReplyDeleteService;
 import com.project.myapp.reply.service.ReplyEditService;
 import com.project.myapp.reply.service.ReplyInsertService;
 import com.project.myapp.reply.service.ReplyMypage;
+import com.project.myapp.reply.service.ReplyMypageTotalService;
 
 @Controller
 public class ReplyController {
@@ -60,11 +61,15 @@ public class ReplyController {
 	
 	@Autowired
 	ReplyMypage replyMypage;
+	@Autowired
+	ReplyMypageTotalService replyMypageTotalServiceImpl;
+	
 	@GetMapping(value = "replyMypage")
 	public String replyMypage(String userId,Criteria cri, Model model) {
 		List<ReplyVo>replyList =  replyMypage.replyMypage(userId,cri);
 		
-		int total = replyList.size();
+		int total = replyMypageTotalServiceImpl.replyMypageTotal(userId);
+		
 		PageMakerVo pageMake = new PageMakerVo(cri, total);
 		model.addAttribute("pageMaker", pageMake);
 		model.addAttribute("replyList",replyList);

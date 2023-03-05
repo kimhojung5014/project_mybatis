@@ -18,7 +18,7 @@
 		 	   Aptd_Type_Code 
 		 	   from joblist 
 		<if test="search != null">
-			where job like '%${search}%'
+			where job like '%'||#{search}||'%'
 		</if>
 		)
 		where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
@@ -31,7 +31,7 @@
 	<select id="jobTotal" parameterType="Criteria" resultType="int">
 		SELECT count(*) from jobList
 		<if test="search != null">
-			where job LIKE '%${search}%'
+			where job LIKE '%'||#{search}||'%'
 		</if>
 	</select>
 	

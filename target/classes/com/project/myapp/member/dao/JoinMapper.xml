@@ -70,4 +70,16 @@
 		where rn BETWEEN ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
 		
   	</select>
+  	
+  	<select id="memberTotal" parameterType="Criteria" resultType="int">
+
+		select count(*) 
+		from (select ROWNUM rn, r.*
+              from JOIN r
+              <if test="search != null">
+              	where userId like '%'|| #{search} || '%'
+              </if>
+              )
+		
+  	</select>
 </mapper>

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <style type="text/css">
 	.error{
-		font-size:1.25rem;
+		font-size:1rem;
 		border-style: solid;
 		border-width: 1px;
 		border-radius:10px;
@@ -17,7 +17,6 @@
 		padding: 30px;
 		background: rgb(76, 111, 219);
 		color: white;
-		font:bold;
 	}
 	
 </style>

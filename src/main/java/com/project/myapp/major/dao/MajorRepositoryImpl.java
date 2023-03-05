@@ -135,14 +135,14 @@ public class MajorRepositoryImpl
 		
 		if (majorTest.getPriority().equals("SATISFACTIONDATA")) {
 			sql.append("select * "+
-					   "from(select ROW_NUMBER() OVER (ORDER BY REGEXP_SUBSTR ("+majorTest.getPriority()+",'[^@]+', 1, 5) desc," +
+					   "from(select ROW_NUMBER() OVER (ORDER BY TO_NUMBER(REGEXP_SUBSTR ("+majorTest.getPriority()+",'[^@]+', 1, 5)) desc," +
 					   	    "REGEXP_SUBSTR ("+majorTest.getPriority()+", '[^@]+', 1, 4) desc)as rn,"+
 		   	    		   "REGEXP_SUBSTR ("+majorTest.getPriority()+", '[^@]+', 1, 5)priority , m.* "+
 						    "from majordetail m ");
 		}
 		else {
 			sql.append("select * "+
-					   "from(select ROW_NUMBER() OVER (ORDER BY REGEXP_SUBSTR ("+majorTest.getPriority()+",'[^@]+', 1, 1) desc)as rn," +
+					   "from(select ROW_NUMBER() OVER (ORDER BY TO_NUMBER(REGEXP_SUBSTR ("+majorTest.getPriority()+",'[^@]+', 1, 1)) desc)as rn," +
 					   		"REGEXP_SUBSTR ("+majorTest.getPriority()+",'[^@]+', 1, 1)priority ,m.* "+
 						    "from majordetail m ");
 		}
@@ -168,39 +168,7 @@ public class MajorRepositoryImpl
 		sql.append("where rn BETWEEN 1 and 10");
 		return jdbc.query(sql.toString(), new MajorMapper());
 	}
-	//@Override
-//	public int majorReTotal(MajorTest majorTest, Criteria cri) {
-//		StringBuilder sql = new StringBuilder();
-//		if (majorTest.getPriority().equals("SATISFACTIONDATA")) {
-//			sql.append("select count(*) "+
-//					   "from(select ROW_NUMBER() OVER (ORDER BY REGEXP_SUBSTR ("+majorTest.getPriority()+", '[^@]+', 1, 5) desc)as rn, m.* "+
-//						    "from majordetail m ");
-//		}
-//		else {
-//			sql.append("select count(*) "+
-//					   "from(select ROW_NUMBER() OVER (ORDER BY REGEXP_SUBSTR ("+majorTest.getPriority()+", '[^@]+', 1, 1) desc)as rn, m.* "+
-//						    "from majordetail m ");
-//		}
-//
-//		//전공계열이 전체가 아니라면
-//		if (!majorTest.getLclass().equals("all") {
-//			 sql.append("where lclass like '"+majorTest.getLclass()+"' ");
-//		}
-//		if (!majorTest.getLclass().equals("all") && !majorTest.getUni().equals("all")) {
-//			sql.append("and uni like '"+majorTest.getUni()+"' ");
-//		}
-//		else if (majorTest.getLclass().equals("all") && !majorTest.getUni().equals("all")) {
-//			sql.append("where uni like '"+majorTest.getUni()+"' ");
-//		}
-//		if ((!majorTest.getLclass().equals("all") || !majorTest.getUni().equals("all")) && (majorTest.getMoney().equals("경제적으로 힘든 상황") || majorTest.getTime().equals("온라인만 가능"))) {
-//			sql.append("and (m.schoolname like '%한국방송통신%' or m.schoolname like '%사이버%')");
-//		}else if ((majorTest.getLclass().equals("all") && majorTest.getUni().equals("all")) && (majorTest.getMoney().equals("경제적으로 힘든 상황") || majorTest.getTime().equals("온라인만 가능"))) {
-//			sql.append("where m.schoolname like '%한국방송통신%' or m.schoolname like '%사이버%'");
-//		}
-//			sql.append(") ");
-//		
-//		return jdbc.queryForObject(sql.toString(), Integer.class);
-//	}
+
 	
 	
 }

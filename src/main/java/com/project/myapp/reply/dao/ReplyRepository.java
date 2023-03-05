@@ -18,4 +18,6 @@ public interface ReplyRepository {
 	public int replyTotal(int writeNum);
 	
 	public List<ReplyVo> replyMypage(@Param("userId")String userId,@Param("cri")Criteria cri);
+	
+	public int replyMypageTotal(@Param("userId")String userId);
 }

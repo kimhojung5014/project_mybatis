@@ -63,7 +63,12 @@
 			          <tr>
 
 			            <td>${list.writeNum }</td>
+			            <c:if test="${list.category eq '공지사항' }">
+			            <td><p style="font-weight: bold; color: red;">${list.category }</p></td>
+			            </c:if>
+			            <c:if test="${list.category ne '공지사항' }">
 			            <td>${list.category } </td>
+			            </c:if>
 			            <td><a href="inToBoard?writeNum=${list.writeNum }">${list.title}</a></td>
 			            <td>${list.writer }</td>
 			            <td>${list.writingTime }</td>
