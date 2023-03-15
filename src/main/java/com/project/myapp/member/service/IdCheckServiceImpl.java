@@ -12,8 +12,8 @@ public class IdCheckServiceImpl implements IdCheckService{
 	JoinRepository joinRepository;
 	
 	@Override
-	public boolean idCheck(String id) {
+	public int idCheck(String userId) {
 		
-		return joinRepository.idCheck(id);
+		return joinRepository.idCheck(userId);
 	}
 }

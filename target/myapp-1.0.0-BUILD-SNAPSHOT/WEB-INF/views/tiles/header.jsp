@@ -19,13 +19,7 @@
       <a href="/" >나의 진로 추천 서비스</a>
     </div>
     <div id="searchStyle">
-      <!--검색 기능 폼  -->
-      <form action="">
-      
-        <label for="totalSearch"><span>통합검색</span></label>
-        <input type="search" name="totalSearch" class="searchSize" placeholder="Search...">
-      </form>
-
+  	<b>나의 진로 추천 사이트를 방문해주셔서 감사합니다.</b>
     </div> 
     <nav id ="nav1">                
       <ul id="loginmenu">
@@ -46,7 +40,21 @@
         </li>
         <li>
         	<c:choose>
-        		<c:when test="${userData ne null}"><a href ="mypage">마이페이지</a></c:when>
+        		<c:when test="${userData ne null}">
+        		<ul class="main1">
+        		  <li>마이페이지
+        			<ul class="main2">
+    			        <li><a href="mypage">개인 정보 수정</a></li>
+                        <li><a href="list?chooseSearch=writer&search=${userData.nickName}">작성글보기</a></li>
+                        <li><a href="replyMypage?userId=${userData.userId}">작성댓글보기</a></li>
+                        <!-- 관리자 전용 탈퇴  -->
+                        <c:if test="${userData.userId eq 'master'}">
+                        <li><a href="memberList">회원 목록</a></li>
+                        </c:if>
+        			</ul>
+                </ul>
+        		</c:when>
+    		    
     		    <c:otherwise></c:otherwise>
         	</c:choose>
         </li>

@@ -14,7 +14,7 @@ public class MajorReTotalServiceImpl implements MajorReTotalService{
 	MajorRepository majorRepository;
 	
 	@Override
-	public int majorReTotal(MajorTest majorTest, Criteria cri) {
-		return majorRepository.majorReTotal(majorTest, cri);
+	public int majorRecommendTotal(MajorTest majorTest) {
+		return majorRepository.majorRecommendTotal(majorTest);
 	}
 }

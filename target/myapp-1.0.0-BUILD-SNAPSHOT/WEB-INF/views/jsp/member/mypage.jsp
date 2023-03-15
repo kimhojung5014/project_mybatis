@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/join.css?1"> 
+  <link rel="stylesheet" href="/css/join.css?12"> 
   <title>마이 페이지</title>
 </head>
 <body>
@@ -17,7 +17,7 @@
   <!-- 메인 부분 -->
   <div id="mainStyle">
     <div id="mainContent">
-      <h1 class="subtitle">개인정보수정</h1>
+      <h1 class="subtitle" >개인정보수정</h1>
       
 
       <form action="edit" method="post" id ="editForm">
@@ -37,7 +37,7 @@
             </tr>
             <tr>
               <td class="textleft">비밀번호</td>
-              <td><input type="text" id="pw" name="pw" value="${userData.pw}" required onkeyup="pw_Regular_Check()">
+              <td><input type="password" id="pw" name="pw" value="${userData.pw}" required onkeyup="pw_Regular_Check()">
     		   </td>
             </tr>
             <tr>
@@ -48,7 +48,7 @@
             </tr>
             <tr>
               <td class="textleft">비밀번호 확인</td>
-				 <td><input type="text" name="pwCheck" id="pwCheck"  value="${userData.pw}" placeholder="비밀번호 재입력" required onkeyup="pw_Check()">
+				 <td><input type="password" name="pwCheck" id="pwCheck"  value="${userData.pw}" placeholder="비밀번호 재입력" required onkeyup="pw_Check()">
                  </td>
             </tr>
             <tr>
@@ -106,12 +106,29 @@
             </tr>
             
             
-            <tr>
-              <td colspan="3"><button class="button" type="button" onclick=" myPage_final_Check()" >완료</button></td>
-            </tr>
+<!--             <tr> -->
+<!--               <td colspan="3"><button class="button" type="button" onclick=" myPage_final_Check()" >완료</button></td> -->
+<!--             </tr> -->
           </table>
+          <div>
+          <ul id="choose">
+	          <li><button class="button" type="button" onclick=" myPage_final_Check()" >완료</button></li>
+	          <li><a class="button" onclick="drop('${userData.userId}','${userData.pw}')" >회원탈퇴</a></li>
+          </ul>
+          </div>
         </div>
         </form>
+        <script type="text/javascript">
+        	function drop(id,pw) {
+        		const check = prompt('탈퇴하실 경우 비밀번호를 입력바랍니다.')
+        		if(check === pw){
+        			alert('회원탈퇴 진행')
+        			document.location.href = "drop?userId="+id
+        		}else{
+        			alert('비밀번호가 틀립니다.')
+        		}
+			}
+        </script>
     </div>
   </div>
 <!-- 메인  끝-->

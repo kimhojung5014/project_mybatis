@@ -45,7 +45,7 @@
             <c:if test="${majorTest.lclass eq 'all'}">
             	 전체 계열 중에서&nbsp; 
             </c:if>
-             ${majorTest.priority}&nbsp;  ${status.index + 1 }등은 <span style="color: rgb(76, 111, 219)">${majorList.major }</span>입니다.</p>
+             ${majorTest.priority}&nbsp;  ${majorList.rank}등은 <span style="color: rgb(76, 111, 219)">${majorList.major }</span>입니다.</p>
 			
 			<c:set var="employment" value="${fn:split(majorList.employment,'@')}"/>
 			
@@ -576,6 +576,58 @@
 
 
       <!-- 대학정보끝 -->
+        <!-- 아래 페이지 넘버 부분 -->
+        <div class="pageInfo_area">
+ 			<table id="pageInfo" class="pageInfo oncenter">
+ 				<!-- 이전페이지 버튼 -->
+ 				<tr>
+ 					<c:if test="${pageMaker.total ne 0}">
+                		<td class="pageInfo_btn"><a style="display: inline-block;" href="${1}">처음</a></td>
+                	</c:if>
+                	
+               		 <c:if test="${pageMaker.prev}">
+                    <td class="pageInfo_btn previous"><a href="${pageMaker.startPage-1}">&larr;</a></td>
+               		 </c:if>
+
+                <!-- 각 번호 페이지 버튼 -->
+                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                   <c:if test="${num ne 0}">
+                    <td class="pageInfo_btn ${pageMaker.cri.pageNum == num ? "active":"" }"><a href="${num}">${num}</a></td>
+                    </c:if>
+                </c:forEach>
+
+                <!-- 다음페이지 버튼 -->
+                <c:if test="${pageMaker.next}">
+                    <td class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">&rarr;</a></td>
+                </c:if> 
+                <c:if test="${pageMaker.total ne 0}">
+                <td class="pageInfo_btn"><a style="display: inline-block;" href="${pageMaker.realEnd}">&nbsp;끝</a></td>
+                </c:if>
+                <tr>
+ 			</table>
+        </div>
+    <form id="moveForm" method="post">
+            <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+   			<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+   			
+   			<input type="hidden" name="uni" value="${majorTest.uni}">
+   			<input type="hidden" name="lclass" value="${majorTest.lclass}">
+   			<input type="hidden" name="priority" value="${majorTest.priority}">
+   			<input type="hidden" name="money" value="${majorTest.money}">
+   			<input type="hidden" name="time" value="${majorTest.time}">
+   			
+  	</form>
+  	<script type="text/javascript">
+	$(".pageInfo a").on("click", function(e){
+		let moveForm = $("#moveForm");
+	    e.preventDefault();
+	    moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+	    moveForm.attr("action", "majorRecommend");
+	    moveForm.submit();
+	    
+	})  	
+  	</script>
+        <!-- 페이지 넘버부분 끝 -->
     </div>
   </div>
 <!-- 메인  끝-->

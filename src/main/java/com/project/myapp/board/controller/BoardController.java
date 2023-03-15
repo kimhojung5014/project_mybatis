@@ -41,9 +41,7 @@ public class BoardController {
 	public String boardList(Criteria cri,Model model){
 		
 		int total = boardTotalService.boardTotal(cri);
-		System.out.println("total변수 "+total);
 		PageMakerVo pageMake = new PageMakerVo(cri, total);
-		System.out.println("pageMakerVo");
 		model.addAttribute("boardList", boardPageListService.boardList(cri));
 
 		model.addAttribute("pageMaker", pageMake);

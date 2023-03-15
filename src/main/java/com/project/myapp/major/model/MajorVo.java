@@ -43,103 +43,15 @@ public class MajorVo {
 					applicantItem , //-- 지원자 , 입학자
 					applicantData,  //-- 값
 					priority;
-	public MajorVo() {
-	}
-	
-	public MajorVo(String lClass, String majorSeq, String uni, String major, String salary, String employment,
-			String department, String summary, String subject_description, String subject_name, String act_name,
-			String act_description, String job, String qualifications, String interest, String property,
-			String gradeuate, String description, String sBJECT_NM, String sBJECT_SUMRY, String area, String schoolURL,
-			String campus_nm, String majorName, String schoolName, String fieldItem, String fieldData, String afterItem,
-			String afterData, String salaryItem, String salaryData, String satisfactionItem, String satisfactionData,
-			String employmentItem, String employmentData, String applicantItem, String applicantData, String priority) {
-		super();
-		this.lClass = lClass;
-		this.majorSeq = majorSeq;
-		this.uni = uni;
-		this.major = major;
-		this.salary = salary;
-		this.employment = employment;
-		this.department = department;
-		this.summary = summary;
-		this.subject_description = subject_description;
-		this.subject_name = subject_name;
-		this.act_name = act_name;
-		this.act_description = act_description;
-		this.job = job;
-		this.qualifications = qualifications;
-		this.interest = interest;
-		this.property = property;
-		this.gradeuate = gradeuate;
-		this.description = description;
-		SBJECT_NM = sBJECT_NM;
-		SBJECT_SUMRY = sBJECT_SUMRY;
-		this.area = area;
-		this.schoolURL = schoolURL;
-		this.campus_nm = campus_nm;
-		this.majorName = majorName;
-		this.schoolName = schoolName;
-		this.fieldItem = fieldItem;
-		this.fieldData = fieldData;
-		this.afterItem = afterItem;
-		this.afterData = afterData;
-		this.salaryItem = salaryItem;
-		this.salaryData = salaryData;
-		this.satisfactionItem = satisfactionItem;
-		this.satisfactionData = satisfactionData;
-		this.employmentItem = employmentItem;
-		this.employmentData = employmentData;
-		this.applicantItem = applicantItem;
-		this.applicantData = applicantData;
-		this.priority = priority;
+	public int getRank() {
+		return rank;
 	}
 
-	public MajorVo(String lClass, String majorSeq, String uni, String major, String salary, String employment,
-			String department, String summary, String subject_description, String subject_name, String act_name,
-			String act_description, String job, String qualifications, String interest, String property,
-			String gradeuate, String description, String SBJECT_NM, String SBJECT_SUMRY, String area,
-			String schoolURL, String campus_nm, String majorName, String schoolName, String fieldItem,
-			String fieldData, String afterItem, String afterData, String salaryItem, String salaryData,
-			String satisfactionItem, String satisfactionData, String employmentItem, String employmentData,
-			String applicantItem, String applicantData) {
-		this.lClass = lClass;
-		this.majorSeq = majorSeq;
-		this.uni = uni;
-		this.major = major;
-		this.salary = salary;
-		this.employment = employment;
-		this.department = department;
-		this.summary = summary;
-		this.subject_description = subject_description;
-		this.subject_name = subject_name;
-		this.act_name = act_name;
-		this.act_description = act_description;
-		this.job = job;
-		this.qualifications = qualifications;
-		this.interest = interest;
-		this.property = property;
-		this.gradeuate = gradeuate;
-		this.description = description;
-		this.SBJECT_NM = SBJECT_NM;
-		this.SBJECT_SUMRY = SBJECT_SUMRY;
-		this.area = area;
-		this.schoolURL = schoolURL;
-		this.campus_nm = campus_nm;
-		this.majorName = majorName;
-		this.schoolName = schoolName;
-		this.fieldItem = fieldItem;
-		this.fieldData = fieldData;
-		this.afterItem = afterItem;
-		this.afterData = afterData;
-		this.salaryItem = salaryItem;
-		this.salaryData = salaryData;
-		this.satisfactionItem = satisfactionItem;
-		this.satisfactionData = satisfactionData;
-		this.employmentItem = employmentItem;
-		this.employmentData = employmentData;
-		this.applicantItem = applicantItem;
-		this.applicantData = applicantData;
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
+
+	private int rank;
 	
 	public String getPriority() {
 		return priority;

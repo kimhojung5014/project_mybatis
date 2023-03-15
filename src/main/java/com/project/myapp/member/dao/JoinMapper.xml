@@ -11,14 +11,14 @@
   			values(ADDR_SEQ.nextval,#{userId},#{pw},#{nickName},#{userName},#{eMail},#{telNumber},TO_CHAR(SYSDATE,'YYYY"년" MM"월 "DD"일 "hh24"시 "mi"분 "ss"초"'))
   	</insert>
   	
-  	<select id="idCheck" parameterType="String" resultType="boolean">
-  		select CASE when COUNT(*) = 0 then 1 else 0 end as exist 
+  	<select id="idCheck" parameterType="String" resultType="int">
+  		select COUNT(*)
   		FROM JOIN 
   		WHERE USERID = #{id}
   	</select>
   	
-  	<select id="nickNameCheck" parameterType="String" resultType="boolean">
-  		select CASE when COUNT(*) = 0 then 1 else 0 end as exist 
+  	<select id="nickNameCheck" parameterType="String" resultType="int">
+  		select COUNT(*)
   		FROM JOIN 
   		WHERE NICKNAME = #{nick}
   	</select>

@@ -4,21 +4,10 @@
 	
 	<select id="jobList" parameterType="Criteria" resultType="JobListVo">
 		 select *
-		 from (select 
-		 	   rownum rn,
-		 	   job, jobdicseg, profrssion ,
-		 	   similarJob ,
-		 	   summary ,
-		 	   equalemployment ,
-		 	   possibility , 
-		 	   prospect ,
-		 	   salery ,
-		 	   job_Code , 
-		 	   job_Ctg_Code ,
-		 	   Aptd_Type_Code 
-		 	   from joblist 
+		 from (select ROWNUM rn, j2.*
+		 	   from jobList j2 
 		<if test="search != null">
-			where job like '%${search}%'
+			where job like '%'||#{search}||'%'
 		</if>
 		)
 		where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
@@ -31,13 +20,14 @@
 	<select id="jobTotal" parameterType="Criteria" resultType="int">
 		SELECT count(*) from jobList
 		<if test="search != null">
-			where job LIKE '%${search}%'
+			where job LIKE '%'||#{search}||'%'
 		</if>
 	</select>
 	
+	<!-- 직업 추천 기능 -->
 	<select id="jobRecommendList" parameterType="Criteria" resultType="JobDetailVo">
 		select jd2.*
-		from (select rownum rn,jd1.*
+		from (select ROWNUM RN,jd1.*
 			  FROM(SELECT *
 			       FROM JOBDETAIL
 			       WHERE ${priority} IS NOT NULL
@@ -46,11 +36,11 @@
 			       </if>
 			       AND JOB in (SELECT JOB FROM JOBLIST 
 			       <if test="!profrssion.equals('All')">
-			       WHERE profrssion LIKE #{profrssion}
+			       WHERE PROFRSSION LIKE #{profrssion}
 			       </if>
 			       )
 			       ORDER BY to_Number(${priority}) DESC)jd1 )jd2
-			       where rn between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
+			       where RN between ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
 	</select>
 	
 		<select id="jobRecommendTotal" parameterType="Criteria" resultType="int">

@@ -11,7 +11,7 @@ public class NickNameCheckServiceImpl implements NickNameCheckService{
 	JoinRepository joinRepository;
 	
 	@Override
-	public boolean nickNameCheck(String nick) {
-		return joinRepository.nickNameCheck(nick);
+	public int nickNameCheck(String nickName) {
+		return joinRepository.nickNameCheck(nickName);
 	}
 }

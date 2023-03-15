@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/css/header_footer.css">
 </head>
 <body>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<div id="container">
 		<div id="header">
 			<!-- tiles_member.xml의 <defintion>의 하위 태그인

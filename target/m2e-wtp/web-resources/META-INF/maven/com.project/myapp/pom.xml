@@ -30,6 +30,13 @@
     <artifactId>mybatis-spring</artifactId>
     <version>1.2.2</version>
 </dependency>
+
+<!-- 잭슨 -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.9.2</version>
+</dependency>
 		<!-- simple Json -->
 		<dependency>
 		    <groupId>com.googlecode.json-simple</groupId>

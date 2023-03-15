@@ -17,7 +17,7 @@ public class MajorRecommendServiceImpl implements MajorRecommendService{
 	MajorRepository majorRepository;
 	
 	@Override
-	public List<MajorVo> majorRecommend(MajorTest majorTest) {
-		return majorRepository.majorRecommend(majorTest);
+	public List<MajorVo> majorRecommend(MajorTest majorTest,Criteria cri) {
+		return majorRepository.majorRecommend(majorTest, cri);
 	}
 }

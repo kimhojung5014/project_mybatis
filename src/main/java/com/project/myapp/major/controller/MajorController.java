@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.project.myapp.major.model.MajorTest;
 import com.project.myapp.major.service.MajorDetailService;
 import com.project.myapp.major.service.MajorListService;
+import com.project.myapp.major.service.MajorReTotalService;
 import com.project.myapp.major.service.MajorRecommendService;
 import com.project.myapp.major.service.MajorTotalService;
 import com.project.myapp.page.model.Criteria;
@@ -53,11 +54,30 @@ public class MajorController {
 	
 	@Autowired
 	MajorRecommendService majorRecommendServiceImpl;
+	@Autowired
+	MajorReTotalService majorReTotalServiceImpl;
 	
 	@PostMapping(value = "majorRecommend")
-	public String majorRecommend(MajorTest majorTest, Model model) {
+	public String majorRecommend(MajorTest majorTest,Criteria cri, Model model) {
 		
-		model.addAttribute("majorList", majorRecommendServiceImpl.majorRecommend(majorTest));
+		if (majorTest.getPriority().equals("취업률")) {
+			majorTest.setPriority("employmentdata");
+		}else if (majorTest.getPriority().equals("임금")) {
+			majorTest.setPriority("salarydata");
+		}else {
+			majorTest.setPriority("SATISFACTIONDATA");
+		}
+		if (majorTest.getUni().equals("대학교(4,2년제 전체)")) {
+			majorTest.setUni("all");
+		}
+		
+		int total = majorReTotalServiceImpl.majorRecommendTotal(majorTest);
+		
+		PageMakerVo pageMake = new PageMakerVo(cri, total);
+		
+		model.addAttribute("pageMaker", pageMake);
+		
+		model.addAttribute("majorList", majorRecommendServiceImpl.majorRecommend(majorTest, cri));
 		
 		if (majorTest.getPriority().equals("employmentdata")) {
 			majorTest.setPriority("취업률");

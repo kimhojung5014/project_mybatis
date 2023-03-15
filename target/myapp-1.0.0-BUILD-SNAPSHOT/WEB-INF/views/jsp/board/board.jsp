@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/board.css"> 
+  <link rel="stylesheet" href="/css/board.css?1"> 
 
   <link rel="stylesheet" href="/css/page.css">
   
@@ -27,20 +27,19 @@
 
     <div id="mainContent">
       <!-- 상단 메뉴 카테고리 -->
-      <p class="subtitle">게시판</p>
+      <a class="subtitle" href="list">게시판</a>
       <br>
       <table class="memuTable">
         <tr>
-        <c:if test="${userData.userId eq 'master' }">
-          <th style="background: red;"><a href="testinsert" style="background: red;">더미 삽입! </a>
-          <th style="background: red;"><a href="testdelete" style="background: red;">전체 삭제! </a>
-        </c:if>
-          <th>공지사항</th>
+          <th><a href="list?category=공지사항">공지사항</a></th>
           <th><a href="list?category=직업정보">직업정보</a></th>
           <th><a href="list?category=학과정보">학과정보</a></th>
           <th><a href="list?category=고민상담">고민상담</a></th>
         </tr>
       </table>
+      <form action="list" method="get">
+
+      </form>
       <!-- 상단 메뉴 카테고리 끝 -->
 
       <!-- 테이블로 만든 게시판 형식 -->
@@ -64,14 +63,19 @@
 			          <tr>
 
 			            <td>${list.writeNum }</td>
+			            <c:if test="${list.category eq '공지사항' }">
+			            <td><p style="font-weight: bold; color: red;">${list.category }</p></td>
+			            </c:if>
+			            <c:if test="${list.category ne '공지사항' }">
 			            <td>${list.category } </td>
+			            </c:if>
 			            <td><a href="inToBoard?writeNum=${list.writeNum }">${list.title}</a></td>
 			            <td>${list.writer }</td>
 			            <td>${list.writingTime }</td>
 			            <td>${list.views }</td>
 			            
 						<c:choose>
-			            	<c:when test="${userData.userId eq list.userId }">
+			            	<c:when test="${userData.userId eq list.userId || userData.userId eq 'master'}">
 	    						<td>
 				            		<a type="button" class="deleteButton" onclick="deleteCheck(${list.writeNum })">삭제</a>
 			            		</td>

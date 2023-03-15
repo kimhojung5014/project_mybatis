@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.myapp.member.dao.JoinRepository;
@@ -110,27 +112,48 @@ public class MemberController {
 		}
 	}
 	
-	//아이디 중복체크
-	@GetMapping(value = "idCheck")
-	public String idCheck(String userId, Model model, HttpSession session) {
+	
+//	//아이디 중복체크 예전 버전
+//	@PostMapping(value = "idCheck")
+//	public String idCheck(String userId, Model model, HttpSession session) {
+//		
+//		if (idCheckService.idCheck(userId)) {
+//			session.setAttribute("userId", userId);
+//			model.addAttribute("idCheck", "OK");
+//		}
+//		return "member/idCheck";
+//	}
+	
+	//아이디 중복체크 아작스
+	@PostMapping(value = "/idCheck")
+	@ResponseBody
+	public int idCheck(@RequestParam("userId") String userId) {
 		
-		if (idCheckService.idCheck(userId)) {
-			session.setAttribute("userId", userId);
-			model.addAttribute("idCheck", "OK");
-		}
-		return "member/idCheck";
-	}
+		int value = idCheckService.idCheck(userId);
+		
+		return value;
+	}	
+	
 	//닉네임 중복체크
-	@GetMapping(value = "nickNameCheck")
-	public String nickNameCheck(String nickName,String page, Model model, HttpSession session) {
+//	@PostMapping(value = "nickCheck")
+//	public String nickNameCheck(String nickName,String page, Model model, HttpSession session) {
+//		
+//		if (nickNameCheckService.nickNameCheck(nickName)) {
+//			session.setAttribute("nickName", nickName);
+//			model.addAttribute("nickCheck", "OK");
+//			model.addAttribute("page",page);
+//		}
+//		return "member/nickCheck";
+//	}
+	@PostMapping(value = "/nickCheck")
+	@ResponseBody
+	public int nickCheck(@RequestParam("nickName")String nickName) {
 		
-		if (nickNameCheckService.nickNameCheck(nickName)) {
-			session.setAttribute("nickName", nickName);
-			model.addAttribute("nickCheck", "OK");
-			model.addAttribute("page",page);
-		}
-		return "member/nickCheck";
-	}
+		int value = nickNameCheckService.nickNameCheck(nickName);
+		
+		return value;
+	}	
+	
 	//아이디 찾기 페이지만 이동
 	@GetMapping(value = "findId")
 	public String findId() {

@@ -18,15 +18,9 @@
     <div id="titleHome">
       <a href="/" >나의 진로 추천 서비스</a>
     </div>
-<!--     <div id="searchStyle"> -->
-<!--       검색 기능 폼  -->
-<!--       <form action=""> -->
-      
-<!--         <label for="totalSearch"><span>통합검색</span></label> -->
-<!--         <input type="search" name="totalSearch" class="searchSize" placeholder="Search..."> -->
-<!--       </form> -->
-
-<!--     </div>  -->
+    <div id="searchStyle">
+  	<b>나의 진로 추천 사이트를 방문해주셔서 감사합니다.</b>
+    </div> 
     <nav id ="nav1">                
       <ul id="loginmenu">
 	      <li>

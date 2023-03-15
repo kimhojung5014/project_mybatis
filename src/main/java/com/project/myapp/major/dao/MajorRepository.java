@@ -16,7 +16,7 @@ public interface MajorRepository {
 	
 	public int majorTotal(Criteria cri);
 	
-	public int majorReTotal(@Param("majorTest")MajorTest majorTest,@Param("cri") Criteria cri);
+	public int majorRecommendTotal(MajorTest majorTest);
 	
-	public List<MajorVo> majorRecommend(MajorTest majorTest);
+	public List<MajorVo> majorRecommend(@Param("majorTest")MajorTest majorTest,@Param("cri") Criteria cri);
 }

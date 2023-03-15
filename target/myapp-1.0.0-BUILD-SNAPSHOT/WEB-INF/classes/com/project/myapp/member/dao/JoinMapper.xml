@@ -7,8 +7,8 @@
   	</select>
   	
   	<insert id="insertJoin" parameterType="JoinVo">
-  		INSERT into join(numId,userId,pw,nickName,userName,eMail,telNumber)
-  			values(ADDR_SEQ.nextval,#{userId},#{pw},#{nickName},#{userName},#{eMail},#{telNumber})
+  		INSERT into join(numId,userId,pw,nickName,userName,eMail,telNumber,joinDate)
+  			values(ADDR_SEQ.nextval,#{userId},#{pw},#{nickName},#{userName},#{eMail},#{telNumber},TO_CHAR(SYSDATE,'YYYY"년" MM"월 "DD"일 "hh24"시 "mi"분 "ss"초"'))
   	</insert>
   	
   	<select id="idCheck" parameterType="String" resultType="boolean">
@@ -53,4 +53,33 @@
   	<update id="resetPw">
 		UPDATE JOIN SET PW = #{pw} WHERE userid = #{userId}  	
   	</update>
+  	
+  	<delete id="drop" parameterType="String">
+  		DELETE JOIN WHERE USERID like #{userId}
+  	</delete>
+  	
+  	<select id="memberList" parameterType="Criteria" resultType="JoinVo">
+
+		select * 
+		from (select ROWNUM rn, r.*
+              from JOIN r
+              <if test="search != null">
+              	where userId like '%'|| #{search} || '%'
+              </if>
+              )
+		where rn BETWEEN ((#{pageNum}-1) * 10) + 1 and #{pageNum} * 10
+		
+  	</select>
+  	
+  	<select id="memberTotal" parameterType="Criteria" resultType="int">
+
+		select count(*) 
+		from (select ROWNUM rn, r.*
+              from JOIN r
+              <if test="search != null">
+              	where userId like '%'|| #{search} || '%'
+              </if>
+              )
+		
+  	</select>
 </mapper>

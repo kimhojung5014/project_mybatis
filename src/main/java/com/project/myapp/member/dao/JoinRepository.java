@@ -11,9 +11,9 @@ public interface JoinRepository {
 
 	public void insertJoin(JoinVo joinVo);
 	
-	public boolean idCheck(String id);
+	public int idCheck(String userId);
 	
-	public boolean nickNameCheck(String nick);
+	public int nickNameCheck(String nickName);
 	
 	public JoinVo login(@Param("id") String id,@Param("pw") String pw);
 	

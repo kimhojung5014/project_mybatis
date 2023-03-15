@@ -145,7 +145,7 @@
             
             <tr>
               <td colspan="3">
-	              <button style="text-align: center;" class="button" type="button" onclick="final_Check()">회원가입</button>
+	              <button style="margin: auto;" class="button" type="button" onclick="final_Check()">회원가입</button>
 	          </td>
             </tr>
           </table>
