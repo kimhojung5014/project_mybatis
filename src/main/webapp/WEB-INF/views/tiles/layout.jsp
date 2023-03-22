@@ -14,7 +14,7 @@
 <!-- tiles_member.xml의 <definition>의 하위 태그인
 	<put-attribute> 태그의 name이 title인 값을 표시하겠다 -->
 <title><tiles:insertAttribute name="title" /></title>
-  <link rel="stylesheet" href="/css/header_footer.css">
+  <link rel="stylesheet" href="/css/header_footer.css?12">
 </head>
 <body>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>

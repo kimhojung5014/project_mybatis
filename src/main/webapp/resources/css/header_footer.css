@@ -28,11 +28,6 @@ html{
 font-family: 'Noto Sans KR', sans-serif;
 
 }
-body {
-/* 헤더메뉴 fix해놓아서 곂치지 않도록 패팅 탑 100  */
-padding-top: 100px;
-
-}
 
 /* 헤더 레이아웃 */
 
@@ -43,20 +38,19 @@ padding-top: 100px;
   /* 헤더 고정 시 본문에 헤더 흰색 부분에 올라오니 안보이게 색 지정 */
   background-color: white;
 
-  font-size: 1.25rem;
+  font-size: 1rem;
   
   display:grid;
-  grid-template-columns: minmax(0px,1fr) repeat(3,minmax(500px,850px))  minmax(0px,1fr);
+  grid-template-columns:repeat(3,minmax(110px,1fr));
   grid-template-rows: repeat(2,50px);
   
   
   grid-template-areas: 
-  ".. titleHome searchStyle nav1 ."
-  ". nav2 nav2 nav2 .";
+  "titleHome searchStyle nav1"
+  "nav2 nav2 nav2";
 
   text-align: center;
   /* 메뉴바 상단 고정하고 위치 지정 위,양옆에 100% 그리고 body에 패딩-탑 10 */
-  position: fixed;
   
   top: 0;
 
@@ -130,11 +124,11 @@ padding-top: 100px;
 #loginmenu li {
   display: inline-block;
 
-  width: 150px;
+  width: 100px;
 
   line-height: 50px;
 
-  font-size: 1.25rem;
+  font-size: 1rem;
 
   font-weight: bold;
 }

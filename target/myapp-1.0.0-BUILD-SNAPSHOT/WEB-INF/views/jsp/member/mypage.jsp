@@ -55,26 +55,19 @@
             <td></td>
             <td><p id ="pwCheckMsg"></p></td>
             </tr>
-			 <tr>
-             	<td class="textleft">닉네임</td>
-				<c:choose>
-				
-					<c:when test="${nickName ne null }">
-		             	<td><input type="text" id = "nickName" name="nickName" value="${nickName}" readonly></td>           	
-             			<td><input class="button" id="editNickNameBbutton" type="button" onclick="nickName_edit_MyPage()" value="수정"></td>
-					</c:when>
-					
-					<c:when test="${userData.nickName ne null}">
-						<td><input type="text" id = "nickName" name="nickName" value="${userData.nickName}" readonly></td>
-	             		<td><input class="button" id="editNickNameBbutton" type="button" onclick="nickName_edit_MyPage()" value="수정"></td>
-					</c:when>
-				</c:choose>
-             	
-            </tr>
-            <tr>
-            	<td></td>
-            	<td><p id="nickNameMsg">닉네임 변경 시 수정 버튼을 눌러주세요.</p></td>
-            </tr>
+				 <tr>
+	             	<td class="textleft">닉네임</td>
+	             	<td>
+	             		<input type="text" id = "nickName" name="nickName"  placeholder="사이트에서 보여질 이름" required oninput="nick_Check()">
+	             	</td>
+
+	            </tr>
+	            <tr>
+	            	<td></td>
+	            	<td>
+	            		<span id="nickMsg"></span>
+            		</td>
+	            </tr>
             
             <tr>
               <td class="textleft">이름</td>

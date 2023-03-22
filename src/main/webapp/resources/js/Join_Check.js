@@ -64,7 +64,7 @@ function pw_Regular_Check(){
 function id_Check(){
 
 	let userId = $('#userId').val();
-	let idMsg = document.getElementById("idMsg");
+	let idMsg = $("#idMsg");
 	let correctColor = "#28b428";	//맞았을 때 출력되는 색깔.
 	let wrongColor ="#ff0000";	//틀렸을 때 출력되는 색깔
 	const pattern =/^[A-Za-z]{1}[A-Za-z0-9]{7,20}$/; // 첫글자는 문자만 가능 뒤는 상관 없고 글자수는 8-20
@@ -77,12 +77,12 @@ function id_Check(){
 	            data:{userId:userId},
 	            success:function(value){ //컨트롤러에서 넘어온 cnt값을 받는다 
 	                if(value == 0){ //value가 0일 경우 -> 사용 가능한 아이디 
-	        		  	idMsg.style.color = correctColor;
-	        			idMsg.innerHTML = "사용가능합니다.";
+	        		  	idMsg.css("color", correctColor);
+	        			idMsg.text("사용가능합니다.");
 	        			return true;
 	                } else { // value가 1일 경우 -> 이미 존재하는 아이디
-	                	idMsg.style.color = wrongColor;
-	                	idMsg.innerHTML = "이미 사용중인 아이디입니다.";
+	                	idMsg.css("color", wrongColor);
+	                	idMsg.text("이미 사용중인 아이디입니다.");
 	                	
 	                }
 	            },
@@ -92,8 +92,8 @@ function id_Check(){
 	        });
 	
 	  }else{
-		  	idMsg.style.color = wrongColor;
-			idMsg.innerHTML = "첫글자는 영어, 8 ~ 20 글자 특수문자 제외 입력";			
+		  	idMsg.css("color", wrongColor);
+			idMsg.text("첫글자는 영어, 8 ~ 20 글자 특수문자 제외 입력");			
 	  }
 	}
 
